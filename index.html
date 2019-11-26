@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Test task</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+
+    <section class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-1 col-md-2 col-3">
+                <input class="tab" type="radio" name="tab" id="tab1" checked>
+                <label for="tab1">Tab_1</label>
+            </div>
+            <div class="col-xl-1 col-md-2 col-3">
+                <input class="tab" type="radio" name="tab" id="tab2">
+                <label for="tab2">Tab_2</label>
+            </div>
+            <div class="col-xl-1 col-md-2 col-3">
+                <input class="tab" type="radio" name="tab" id="tab3">
+                <label for="tab3">Tab_3</label>
+            </div>
+        </div>
+    </section>
+
+    <section class="tabs-content container active" data-index="0">
+        <p>Some content...</p>
+    </section>
+
+    <section class="tabs-content container" data-index="1">
+        <p>Another content...</p>
+    </section>
+
+    <section class="tabs-content container" data-index="2">
+        <form>
+            <div class="row">
+                <div class="form-group col-xl-12">
+                    <label for="name">Название (Tab_3)</label>
+                    <input type="text" class="form-control" id="name" placeholder="Введите наименование">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Услуга</label>
+                    <select class="form-control" id="service">
+                        <option value="" selected>Не выбранно</option>
+                        <option value="1">Услуга 1</option>
+                        <option value="2">Услуга 2</option>
+                        <option value="3">Услуга 3</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Категория</label>
+                    <select class="form-control" id="category">
+                        <option value="" selected>Не выбранно</option>
+                        <option value="1">Категория 1</option>
+                        <option value="2">Категория 2</option>
+                        <option value="3">Категория 3</option>
+                    </select>
+                </div>
+                <div class="form-group col-xl-12">
+                    <label for="desc">Описание</label>
+                    <textarea class="form-control" id="desc" rows="5" style="resize: none"></textarea>
+                </div>
+            </div>
+
+            <p>Превью</p>
+            <div class="row files" id="filesView">
+                <div class="col-md-4 col-sm-6 col-12 add-file-wrapper">
+                    <input type="file" class="add-file" id="addFile" accept="image/jpeg,image/png">
+                    <label for="addFile">
+                        <div class="btn-info">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="row tarifs-add">
+                <div class="form-group col-lg-2 col-md-4 col-md-8">
+                    <label for="price">Price</label>
+                    <input type="number" class="form-control" id="price">
+                </div>
+                <div class="form-group col-xl-1 col-md-2 col-md-4">
+                    <label for="currency">Currency</label>
+                    <select class="form-control" id="currency">
+                        <option value="₽">₽</option>
+                        <option value="$">$</option>
+                    </select>
+                </div>
+                <div class="form-group col-xl-2 col-lg-3 col-md-6">
+                    <label>Tarif</label>
+                    <select class="form-control" id="newTarifs">
+                        <option value="New tarif" selected disabled>New tarif</option>
+                    </select>
+                </div>
+                <div class="form-group col-lg-3 col-md-6 d-flex align-items-end">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="addNewTarif" placeholder="Add new"
+                            aria-describedby="addNewTarifBtn">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-info" id="addNewTarifBtn">
+                                <i class="fas fa-plus-circle" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-lg-2 col-md-4 d-flex align-items-end">
+                    <button type="button" class="btn btn-info" id="append">APPEND</button>
+                </div>
+            </div>
+
+            <div class="tarifs-list" id="tarifsContainer"></div>
+
+            <div class="row justify-content-center mt-3">
+                <button type="button" class="btn btn-info" id="sendBtn">Отправить</button>
+            </div>
+        </form>
+    </section>
+
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog"
+        aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Вы уверены?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-danger" onClick="deleteTarifConfirm()">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/52e2ca1900.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

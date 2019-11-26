@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 50px;
+}
+
+a,
+input,
+select,
+button {
+    outline: none;
+}
+
+// Hide placeholder start
+input:focus::-webkit-input-placeholder {
+    color: transparent;
+}
+
+/* FF 4-18 */
+input:focus:-moz-placeholder {
+    color: transparent;
+}
+
+
+/* FF 19+ */
+input:focus::-moz-placeholder {
+    color: transparent;
+}
+
+/* IE 10+ */
+input:focus:-ms-input-placeholder {
+    color: transparent;
+}
+
+// Hide placeholder end
+
+.tabs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tab+label:hover {
+    cursor: pointer;
+}
+
+.tabs-content {
+    display: none;
+}
+
+.tabs-content.active {
+    display: block;
+
+    .files {
+        .add-file {
+            display: none;
+        }
+
+        .add-file+label,
+        .added-file {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 150px;
+            width: 100%;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+
+            div {
+                height: 60px;
+                width: 60px;
+                border-radius: .25rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 22px;
+            }
+        }
+
+        .add-file:focus+label,
+        .add-file+label:hover {
+            cursor: pointer;
+        }
+
+        .add-file+label * {
+            pointer-events: none;
+        }
+    }
+
+    .tarifs-add {
+        border-bottom: 1px solid #ced4da;
+    }
+
+    .tarifs-list {
+        width: 100%;
+
+        .tarif {
+            padding: 50px 0;
+            border-bottom: 1px solid #ced4da;
+            flex-wrap: nowrap !important;
+            overflow-x: scroll;
+
+            input[type=checkbox] {
+                max-width: 65px;
+            }
+
+            .tarif-time,
+            .tarif-week {
+                text-align: center;
+                margin: 0;
+                white-space: nowrap
+            }
+
+            .tarif-name,
+            .tarif-currency {
+                background: none !important;
+                border: 0 !important;
+            }
+
+            .tarif-name {
+                max-width: 145px;
+            }
+
+            .tarif-currency {
+                max-width: 25px;
+                text-align: center;
+            }
+        }
+
+        @media screen and (min-width: 1200px) {
+            .tarif {
+                overflow-x: hidden;
+            }
+        }
+
+    }
+}

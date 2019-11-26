@@ -1,0 +1,38 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { padding: 50px; }
+
+a, input, select, button { outline: none; }
+
+input:focus::-webkit-input-placeholder { color: transparent; }
+
+/* FF 4-18 */
+input:focus:-moz-placeholder { color: transparent; }
+
+/* FF 19+ */
+input:focus::-moz-placeholder { color: transparent; }
+
+/* IE 10+ */
+input:focus:-ms-input-placeholder { color: transparent; }
+
+.tabs { display: flex; align-items: center; justify-content: center; }
+
+.tab + label:hover { cursor: pointer; }
+
+.tabs-content { display: none; }
+
+.tabs-content.active { display: block; }
+.tabs-content.active .files .add-file { display: none; }
+.tabs-content.active .files .add-file + label, .tabs-content.active .files .added-file { display: inline-flex; align-items: center; justify-content: center; height: 150px; width: 100%; margin-bottom: 15px; border: 1px solid #ced4da; border-radius: .25rem; }
+.tabs-content.active .files .add-file + label div, .tabs-content.active .files .added-file div { height: 60px; width: 60px; border-radius: .25rem; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+.tabs-content.active .files .add-file:focus + label, .tabs-content.active .files .add-file + label:hover { cursor: pointer; }
+.tabs-content.active .files .add-file + label * { pointer-events: none; }
+.tabs-content.active .tarifs-add { border-bottom: 1px solid #ced4da; }
+.tabs-content.active .tarifs-list { width: 100%; }
+.tabs-content.active .tarifs-list .tarif { padding: 50px 0; border-bottom: 1px solid #ced4da; flex-wrap: nowrap !important; overflow-x: scroll; }
+.tabs-content.active .tarifs-list .tarif input[type=checkbox] { max-width: 65px; }
+.tabs-content.active .tarifs-list .tarif .tarif-time, .tabs-content.active .tarifs-list .tarif .tarif-week { text-align: center; margin: 0; white-space: nowrap; }
+.tabs-content.active .tarifs-list .tarif .tarif-name, .tabs-content.active .tarifs-list .tarif .tarif-currency { background: none !important; border: 0 !important; }
+.tabs-content.active .tarifs-list .tarif .tarif-name { max-width: 145px; }
+.tabs-content.active .tarifs-list .tarif .tarif-currency { max-width: 25px; text-align: center; }
+@media screen and (min-width: 1200px) { .tabs-content.active .tarifs-list .tarif { overflow-x: hidden; } }
