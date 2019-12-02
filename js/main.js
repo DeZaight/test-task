@@ -54,10 +54,28 @@ const newTarifs = document.getElementById("newTarifs");
 const addNewTarif = document.getElementById("addNewTarif");
 
 document.getElementById("addNewTarifBtn").addEventListener("click", () => {
-    let option = newTarifs.options;
-    option[option.length] = new Option(addNewTarif.value, addNewTarif.value, true);
-    addNewTarif.value = "";
+    if (addNewTarif.value !== undefined && addNewTarif.value !== "") {
+        let option = newTarifs.options;
+
+        addNewTarifValue(JSON.stringify(addNewTarif.value));
+        // Тут надо проверить ответ от бэкенда и только после этого добавлять новый option, 
+        // но я не знаю что должен отвечать бэкенд, по этому просто добавлю option и очищу input
+        option[option.length] = new Option(addNewTarif.value, addNewTarif.value, true);
+        addNewTarif.value = "";
+    }
 });
+
+async function addNewTarifValue(r) {
+    let url = "";
+    let response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8"
+        },
+        body: r,
+    });
+    let result = await response.json();
+}
 // Create new tarif end
 
 // Create tarifs start
@@ -69,8 +87,7 @@ document.getElementById("append").addEventListener("click", () => {
     let currency = document.getElementById("currency").value;
     let name = newTarifs.value;
 
-    tarifs.push(tarifs.length);
-    let itemNum = tarifs.length - 1;
+    let itemNum = tarifs.length ? tarifs[tarifs.length - 1] + 1 : 0;
 
     let tarifLayout = `
         <div class="col-auto d-flex align-items-center">
@@ -112,6 +129,8 @@ document.getElementById("append").addEventListener("click", () => {
     div.id = "tarif-" + itemNum;
     div.innerHTML = tarifLayout;
     tarifsContainer.append(div);
+
+    tarifs.push(itemNum);
 });
 // Create tarifs end
 
@@ -124,6 +143,7 @@ function deleteTarif(el) {
 function deleteTarifConfirm() {
     let div = document.getElementById("tarif-" + deletedElement);
     tarifsContainer.removeChild(div);
+    tarifs = tarifs.filter((el) => el !== deletedElement);
     $('#confirmDeleteModal').modal('hide')
 }
 // Delete tarif end
@@ -147,16 +167,15 @@ function enabledTimeValid(el) {
 // Sending data start
 document.getElementById("sendBtn").addEventListener("click", () => {
     let tarifsList = [];
-    let c = tarifsContainer.children.length - 1;
 
-    for (let i = 0; i == c; i++) {
+    for (let i in tarifs) {
         let el = {
-            tarifName: document.getElementById("tarifName-" + i).value ? document.getElementById("tarifName-" + i).value : null,
-            tarifPrice: document.getElementById("tarifPrice-" + i).value ? document.getElementById("tarifPrice-" + i).value : null,
-            tarifCurrency: document.getElementById("tarifCurrency-" + i).value ? document.getElementById("tarifCurrency-" + i).value : null,
-            tarifDateStart: document.getElementById("tarifDateStart-" + i).value ? document.getElementById("tarifDateStart-" + i).value : null,
-            tarifDateEnd: document.getElementById("tarifDateEnd-" + i).value ? document.getElementById("tarifDateEnd-" + i).value : null,
-            tarifWeekDay: document.getElementById("tarifWeekDay-" + i).checked ? true : false,
+            tarifName: document.getElementById("tarifName-" + tarifs[i]).value ? document.getElementById("tarifName-" + tarifs[i]).value : null,
+            tarifPrice: document.getElementById("tarifPrice-" + tarifs[i]).value ? document.getElementById("tarifPrice-" + tarifs[i]).value : null,
+            tarifCurrency: document.getElementById("tarifCurrency-" + tarifs[i]).value ? document.getElementById("tarifCurrency-" + tarifs[i]).value : null,
+            tarifDateStart: document.getElementById("tarifDateStart-" + tarifs[i]).value ? document.getElementById("tarifDateStart-" + tarifs[i]).value : null,
+            tarifDateEnd: document.getElementById("tarifDateEnd-" + tarifs[i]).value ? document.getElementById("tarifDateEnd-" + tarifs[i]).value : null,
+            tarifWeekDay: document.getElementById("tarifWeekDay-" + tarifs[i]).checked ? true : false,
         }
         tarifsList.push(el)
     }
